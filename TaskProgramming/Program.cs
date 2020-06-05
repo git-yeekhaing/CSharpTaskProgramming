@@ -11,29 +11,38 @@ namespace TaskProgramming
     {
         static void Main(string[] args)
         {
+            // Prompt the user for the target number
             Console.WriteLine("Please enter the target number");
-            object target = Console.ReadLine();
-            // Create an instance of ParameterizedThreadStart delegate
-            ParameterizedThreadStart parameterizedThreadStart = new ParameterizedThreadStart(Number.PrintNumbers);
-            Thread T1 = new Thread(parameterizedThreadStart);
-            // Pass the traget number to the start function, which
-            // will then be passed automatically to PrintNumbers() function
-            //Thread thread = new Thread(Number.PrintNumbers); //★このようにも書けます。CompilerはConvertしてくれますから
-            T1.Start(target);
+            // Read from the console and store it in target variable
+            int target = Convert.ToInt32(Console.ReadLine());
+            // Create an instance of the Number class, passing it
+            // the target number that was read from the console
+            Number number = new Number(target);
+            // Specify the Thread function
+            Thread T1 = new Thread(new ThreadStart(number.PrintNumbers));
+            // Alternatively we can just use Thread class constructor as shown below
+            // Thread T1 = new Thread(number.PrintNumbers);
+            T1.Start();
+
+            Console.ReadLine();
         }     
     }
 
     class Number
     {
-        public static void PrintNumbers(object target)
+        int _target;
+        // When an instance is created, the target number needs to be specified
+        public Number(int target)
         {
-            int number = 0;
-            if (int.TryParse(target.ToString(), out number))
+            // The targer number is then stored in the class private variable _target
+            this._target = target;
+        }
+        // Function prints the numbers from 1 to the traget number that the user provided
+        public void PrintNumbers()
+        {
+            for (int i = 1; i <= _target; i++)
             {
-                for (int i = 1; i <= number; i++)
-                {
-                    Console.WriteLine(i);
-                }
+                Console.WriteLine(i);
             }
         }
     }
