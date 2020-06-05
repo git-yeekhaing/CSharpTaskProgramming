@@ -11,12 +11,11 @@ namespace TaskProgramming
     {
         static void Main(string[] args)
         {
-            Thread thread = new Thread(new ThreadStart(() =>
+            Task task = Task.Run(() =>
             {
                 HeavyMethod1();
-            }));
-
-            thread.Start();
+            });
+                        
             HeavyMethod2();
             Console.ReadLine();
         }
