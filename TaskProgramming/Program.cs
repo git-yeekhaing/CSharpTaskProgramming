@@ -11,28 +11,26 @@ namespace TaskProgramming
     {
         static void Main(string[] args)
         {
+            string result = "";
             Thread thread = new Thread(new ThreadStart(() =>
             {
-                HeavyMethod1();
+                result = HeavyMethod();
             }));
 
             thread.Start();
-            HeavyMethod2();
+            thread.Join();
+
+            Console.WriteLine(result);
             Console.ReadLine();
         }
 
-        static void HeavyMethod1()
+        static string HeavyMethod()
         {
             Console.WriteLine("すごく重い処理その1(´・ω・｀)はじまり");
-            Thread.Sleep(5000);
-            Console.WriteLine("すごく重い処理その1(´・ω・｀)おわり");
-        }
-
-        static void HeavyMethod2()
-        {
-            Console.WriteLine("すごく重い処理その2(´・ω・｀)はじまり");
             Thread.Sleep(3000);
-            Console.WriteLine("すごく重い処理その2(´・ω・｀)おわり");
+            Console.WriteLine("すごく重い処理その1(´・ω・｀)おわり");
+
+            return "hoge";
         }
     }
 }

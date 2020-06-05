@@ -1,2 +1,4 @@
 # .vs フォルダは要らない
 .vs/
+TaskProgramming/bin/
+TaskProgramming/obj/
